@@ -3,25 +3,40 @@ import {
   Model,
   type ModelStatic,
   type Sequelize,
-  type InferAttributes,
-  type InferCreationAttributes,
   type CreationOptional
 } from 'sequelize'
 
-export class User extends Model<
-InferAttributes<User>,
-InferCreationAttributes<User>
-> {
+// 1. Definir los atributos explícitos
+export interface UserAttributes {
+  id: CreationOptional<number>
+  name: string
+  lastName: string
+  email: string
+  password: string
+  profileId: number | null
+  createdAt: CreationOptional<Date>
+  updatedAt: CreationOptional<Date>
+}
+
+export interface UserCreationAttributes {
+  name: string
+  lastName: string
+  email: string
+  password: string
+  profileId?: number | null
+}
+
+// 2. Definir la clase User usando UserAttributes
+export class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: CreationOptional<number>
   declare name: string
   declare lastName: string
   declare email: string
   declare password: string
-  declare userTypeId: number | null
+  declare profileId: number | null
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
-  /** Solo atributos; sin asociaciones aquí. */
   static initModel (sequelize: Sequelize): ModelStatic<User> {
     return User.init(
       {
@@ -41,16 +56,18 @@ InferCreationAttributes<User>
         email: {
           type: DataTypes.STRING(255),
           allowNull: false
-          // unique: true  // (lo ideal es definirlo en migración)
         },
         password: {
           type: DataTypes.STRING(255),
           allowNull: false
         },
-        userTypeId: {
+        profileId: {
           type: DataTypes.INTEGER.UNSIGNED,
-          allowNull: true
-          // Las FK se definen en migración; aquí no es obligatorio `references`
+          allowNull: true,
+          references: {
+            model: 'Profiles',
+            key: 'id'
+          }
         },
         createdAt: {
           type: DataTypes.DATE,
@@ -65,8 +82,8 @@ InferCreationAttributes<User>
       },
       {
         sequelize,
-        modelName: 'User', // ← clave en sequelize.models
-        tableName: 'users', // ← tabla física (migración)
+        modelName: 'User',
+        tableName: 'users',
         timestamps: true
       }
     )

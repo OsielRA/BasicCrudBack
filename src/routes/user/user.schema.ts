@@ -5,9 +5,9 @@ export const createUserSchema = z.object({
   body: z.object({
     name: z.string().min(1, 'El nombre es obligatorio'),
     lastName: z.string().min(1, 'El apellido es obligatorio'),
-    userTypeId: z.number().int('Debe ser un número entero'),
     password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
-    email: z.string().email('El correo electrónico no es válido')
+    email: z.string().email('El correo electrónico no es válido'),
+    profileId: z.number().int('Debe ser un número entero')
   })
 })
 

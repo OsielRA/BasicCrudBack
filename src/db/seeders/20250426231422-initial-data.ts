@@ -1,6 +1,6 @@
 'use strict'
 import { QueryInterface } from 'sequelize'
-import { UserTypes } from '../models/usertypes'
+import { UserTypes } from '../models/profile'
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface: QueryInterface) {

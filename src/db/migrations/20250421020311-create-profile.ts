@@ -5,7 +5,7 @@ import { QueryInterface, DataTypes, Sequelize } from 'sequelize'
 module.exports = {
   async up (queryInterface: QueryInterface) {
     await queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.createTable('userTypes', {
+      await queryInterface.createTable('profiles', {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -17,8 +17,12 @@ module.exports = {
           allowNull: false
         },
         description: {
-          type: DataTypes.TEXT,
+          type: DataTypes.STRING(255),
           allowNull: true
+        },
+        rol: {
+          type: DataTypes.STRING(50),
+          allowNull: false
         },
         createdAt: {
           allowNull: false,
@@ -36,7 +40,7 @@ module.exports = {
 
   async down (queryInterface: QueryInterface) {
     await queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.dropTable('userTypes', { transaction })
+      await queryInterface.dropTable('profiles', { transaction })
     })
   }
 }

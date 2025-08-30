@@ -8,17 +8,19 @@ import {
   type CreationOptional
 } from 'sequelize'
 
-export class UserTypes extends Model<
-InferAttributes<UserTypes>,
-InferCreationAttributes<UserTypes>
+export class Profile extends Model<
+InferAttributes<Profile>,
+InferCreationAttributes<Profile>
 > {
   declare id: CreationOptional<number>
   declare name: string
+  declare description: string
+  declare rol: string
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
-  static initModel (sequelize: Sequelize): ModelStatic<UserTypes> {
-    return UserTypes.init(
+  static initModel (sequelize: Sequelize): ModelStatic<Profile> {
+    return Profile.init(
       {
         id: {
           type: DataTypes.INTEGER.UNSIGNED,
@@ -27,6 +29,14 @@ InferCreationAttributes<UserTypes>
         },
         name: {
           type: DataTypes.STRING(100),
+          allowNull: false
+        },
+        description: {
+          type: DataTypes.STRING(255),
+          allowNull: false
+        },
+        rol: {
+          type: DataTypes.STRING(50),
           allowNull: false
         },
         createdAt: {
@@ -42,8 +52,8 @@ InferCreationAttributes<UserTypes>
       },
       {
         sequelize,
-        modelName: 'UserTypes', // ← clave en sequelize.models
-        tableName: 'userTypes', // ← tabla física (migración)
+        modelName: 'Profile',
+        tableName: 'Profile',
         timestamps: true
       }
     )

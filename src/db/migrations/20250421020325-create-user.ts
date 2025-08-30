@@ -29,11 +29,11 @@ module.exports = {
           type: DataTypes.STRING(255),
           allowNull: false
         },
-        userTypeId: {
+        profileId: {
           type: DataTypes.INTEGER.UNSIGNED,
           allowNull: true,
           references: {
-            model: 'userTypes',
+            model: 'profiles',
             key: 'id'
           }
         },
