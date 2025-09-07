@@ -17,7 +17,7 @@ export interface UserAttributes {
   createdAt: CreationOptional<Date>
   updatedAt: CreationOptional<Date>
 }
-
+// 2. Definir los atributos para la creación
 export interface UserCreationAttributes {
   name: string
   lastName: string
@@ -25,8 +25,7 @@ export interface UserCreationAttributes {
   password: string
   profileId?: number | null
 }
-
-// 2. Definir la clase User usando UserAttributes
+// 3. Definir la clase User usando UserAttributes
 export class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: CreationOptional<number>
   declare name: string

@@ -3,15 +3,26 @@ import {
   Model,
   type ModelStatic,
   type Sequelize,
-  type InferAttributes,
-  type InferCreationAttributes,
   type CreationOptional
 } from 'sequelize'
 
-export class Profile extends Model<
-InferAttributes<Profile>,
-InferCreationAttributes<Profile>
-> {
+// 1. Definir los atributos explícitos
+export interface ProfileAttributes {
+  id: CreationOptional<number>
+  name: string
+  description: string
+  rol: string
+  createdAt: CreationOptional<Date>
+  updatedAt: CreationOptional<Date>
+}
+// 2. Definir los atributos para la creación
+export interface ProfileCreationAttributes {
+  name: string
+  description: string
+  rol: string
+}
+// 3. Definir la clase Profile usando ProfileAttributes
+export class Profile extends Model<ProfileAttributes, ProfileCreationAttributes> {
   declare id: CreationOptional<number>
   declare name: string
   declare description: string
